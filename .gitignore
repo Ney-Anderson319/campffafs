@@ -1,0 +1,15 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+*.log
+.firebase
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+# NUNCA versionar credenciais de administrador
+serviceAccount*.json
+*-firebase-adminsdk-*.json
+.DS_Store
+coverage

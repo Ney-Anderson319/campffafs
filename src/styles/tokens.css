@@ -1,0 +1,28 @@
+:root {
+  --bg: #0a0b14;
+  --bg-raised: #0f1020;
+  --surface: #151427;
+  --surface-2: #1d1b34;
+  --line: #2c2948;
+  --accent: #8b4dff;
+  --accent-strong: #a574ff;
+  --accent-soft: rgba(139, 77, 255, 0.16);
+  --text: #f6f5fc;
+  --muted: #aeaac6;
+  --success: #3fe0a0;
+  --success-soft: rgba(63, 224, 160, 0.14);
+  --warn: #ffbd4a;
+  --warn-soft: rgba(255, 189, 74, 0.14);
+  --danger: #ff6b86;
+  --danger-soft: rgba(255, 107, 134, 0.14);
+
+  --font-display: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --chamfer: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --focus: 0 0 0 3px rgba(165, 116, 255, 0.55);
+}

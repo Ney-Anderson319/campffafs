@@ -1,0 +1,62 @@
+.public-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.public-header { padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--line); background: rgba(10, 11, 20, 0.8); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+.brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-weight: 700; color: var(--text); text-decoration: none; font-size: 1.05rem; }
+.brand svg { color: var(--accent-strong); }
+.public-main { width: min(1080px, 100%); margin: 0 auto; padding: 1.5rem 1rem 3rem; flex: 1; }
+.public-footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1.25rem; border-top: 1px solid var(--line); }
+.hero { padding: 1.5rem 0 1rem; }
+.hero p { color: var(--muted); max-width: 58ch; font-size: 1.05rem; }
+.section-title { margin: 2rem 0 1rem; display: flex; align-items: center; gap: 0.7rem; }
+
+.school-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.school-card { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); color: var(--text); text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+.school-card:hover { border-color: var(--accent); background: var(--surface-2); }
+.school-card-body { display: grid; flex: 1; min-width: 0; }
+.school-card-body strong { overflow-wrap: anywhere; }
+.back-link { display: inline-flex; align-items: center; gap: 0.3rem; margin-bottom: 1rem; text-decoration: none; color: var(--muted); }
+.back-link:hover { color: var(--text); }
+
+.school-head { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.champion { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.1rem; margin: 1rem 0; background: linear-gradient(90deg, rgba(139, 77, 255, 0.28), rgba(139, 77, 255, 0.05)); border: 1px solid var(--accent); border-radius: var(--r-lg); font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+.champion svg { color: var(--warn); }
+.team-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.team-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.8rem 0.35rem 0.4rem; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+
+/* Placar: o elemento de destaque do site */
+.standings td, .standings th { padding: 0.8rem 0.9rem; }
+.standings.compact td, .standings.compact th { padding: 0.55rem 0.8rem; }
+.standings .col-team { min-width: 190px; font-weight: 600; }
+.standings .col-rank { width: 64px; }
+.standings .col-total { font-family: var(--font-display); font-size: 1.25rem; color: var(--text); }
+.standings tr.leader { background: linear-gradient(90deg, rgba(139, 77, 255, 0.2), transparent 70%); }
+.standings tr.leader .col-total { color: var(--accent-strong); text-shadow: 0 0 18px rgba(139, 77, 255, 0.7); }
+.rank { display: inline-grid; place-items: center; min-width: 34px; height: 34px; padding: 0 0.3rem; font-family: var(--font-display); font-weight: 700; background: var(--surface-2); clip-path: var(--chamfer); }
+.rank-1 { background: var(--accent); color: #fff; }
+.rank-2, .rank-3 { background: var(--accent-soft); color: var(--accent-strong); }
+
+.rounds { display: grid; gap: 0.75rem; }
+.round-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.round-card > summary { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.9rem 1.1rem; cursor: pointer; list-style: none; min-height: 48px; }
+.round-card > summary::-webkit-details-marker { display: none; }
+.round-card > summary:focus-visible { box-shadow: inset var(--focus); }
+.round-name { font-family: var(--font-display); font-weight: 700; }
+.round-card .table-wrap { border: 0; border-top: 1px solid var(--line); border-radius: 0; }
+
+.bracket { display: grid; gap: 2rem; }
+.stage-title { display: inline-block; padding: 0.3rem 1rem; background: var(--accent); clip-path: var(--chamfer); margin-bottom: 0.8rem; }
+.stage-matches { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.match { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 0.8rem; display: grid; gap: 0.4rem; }
+.match.status-in_progress { border-color: var(--accent); }
+.match-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem; }
+.slot { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0.5rem 0.6rem; background: var(--bg-raised); border-radius: var(--r-md); border-left: 3px solid transparent; }
+.slot.is-winner { border-left-color: var(--success); background: var(--success-soft); font-weight: 700; }
+.slot.is-loser { opacity: 0.6; }
+.slot-end { display: inline-flex; align-items: center; gap: 0.5rem; }
+.score { font-family: var(--font-display); font-size: 1.3rem; font-variant-numeric: tabular-nums; min-width: 1.5ch; text-align: right; }
+.match-games { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; font-size: 0.85rem; }
+.game-chip { background: var(--surface-2); padding: 0.1rem 0.5rem; border-radius: 999px; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 560px) {
+  .standings td, .standings th { padding: 0.6rem 0.55rem; }
+  .standings .col-team { min-width: 150px; }
+}

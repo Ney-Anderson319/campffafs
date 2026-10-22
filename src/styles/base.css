@@ -1,0 +1,29 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1100px 500px at 15% -10%, rgba(139, 77, 255, 0.16), transparent 60%), var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+h1, h2, h3, .h2 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; margin: 0 0 0.5rem; letter-spacing: 0.01em; }
+h1 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); }
+h2, .h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 0.75rem; }
+a { color: var(--accent-strong); }
+code { background: var(--surface-2); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.9em; }
+ul, ol { padding-left: 1.2rem; }
+img { max-width: 100%; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--r-sm); }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.pad { padding: 0.75rem 1rem; }
+.row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.stack { display: grid; gap: 0.35rem; }
+.stack-lg { display: grid; gap: 1rem; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

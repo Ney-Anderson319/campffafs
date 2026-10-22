@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// Logos ficam em:
+//   schools/{schoolId}/logo/{arquivo}
+//   schools/{schoolId}/teams/{teamId}/{arquivo}
+// Leitura pública (são logos exibidos no site). Escrita somente por administradores,
+// apenas imagens PNG/JPG/WebP de até 2 MB.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+    function validImage() {
+      return request.resource.size <= 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/(png|jpeg|webp)');
+    }
+
+    match /schools/{schoolId}/logo/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && validImage();
+      allow delete: if isAdmin();
+    }
+
+    match /schools/{schoolId}/teams/{teamId}/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && validImage();
+      allow delete: if isAdmin();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,99 @@
+rules_version = '2';
+
+// Estrutura:
+//   schools/{schoolId}
+//     teams/{teamId}
+//     championship/{doc}          (apenas "main")
+//     rounds/{roundId}/results/{teamId}
+//     stages/{stageId}
+//     matches/{matchId}
+//
+// Leitura pública: somente de escolas com published == true (e dos dados dessa escola).
+// Quedas só são legíveis se published == true.
+// Escrita: somente administradores (Custom Claim admin == true, atribuída por script confiável).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function schoolIsPublished(schoolId) {
+      return get(/databases/$(database)/documents/schools/$(schoolId)).data.published == true;
+    }
+
+    function validName(n, max) {
+      return n is string && n.size() > 0 && n.size() <= max;
+    }
+
+    match /schools/{schoolId} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create: if isAdmin()
+        && validName(request.resource.data.name, 100)
+        && request.resource.data.published is bool;
+      allow update: if isAdmin()
+        && validName(request.resource.data.name, 100)
+        && request.resource.data.published is bool;
+      allow delete: if isAdmin();
+
+      match /teams/{teamId} {
+        allow read: if isAdmin() || schoolIsPublished(schoolId);
+        allow create, update: if isAdmin()
+          && validName(request.resource.data.name, 60)
+          && request.resource.data.schoolId == schoolId;
+        allow delete: if isAdmin();
+      }
+
+      match /championship/{docId} {
+        allow read: if isAdmin() || schoolIsPublished(schoolId);
+        allow create, update: if isAdmin()
+          && docId == 'main'
+          && request.resource.data.format in ['knockout', 'points']
+          && request.resource.data.status in ['not_started', 'in_progress', 'finished'];
+        allow delete: if isAdmin();
+      }
+
+      match /rounds/{roundId} {
+        allow read: if isAdmin() || (schoolIsPublished(schoolId) && resource.data.published == true);
+        allow create, update: if isAdmin()
+          && validName(request.resource.data.name, 100)
+          && request.resource.data.published is bool
+          && request.resource.data.status in ['open', 'finished'];
+        allow delete: if isAdmin();
+
+        match /results/{teamId} {
+          allow read: if isAdmin()
+            || (schoolIsPublished(schoolId)
+                && get(/databases/$(database)/documents/schools/$(schoolId)/rounds/$(roundId)).data.published == true);
+          allow create, update: if isAdmin()
+            && request.resource.data.teamId == teamId
+            && (request.resource.data.position == null
+                || (request.resource.data.position is int && request.resource.data.position >= 1))
+            && (request.resource.data.kills == null
+                || (request.resource.data.kills is int && request.resource.data.kills >= 0))
+            && request.resource.data.status in ['complete', 'incomplete'];
+          allow delete: if isAdmin();
+        }
+      }
+
+      match /stages/{stageId} {
+        allow read: if isAdmin() || schoolIsPublished(schoolId);
+        allow create, update: if isAdmin() && validName(request.resource.data.name, 100);
+        allow delete: if isAdmin();
+      }
+
+      match /matches/{matchId} {
+        allow read: if isAdmin() || schoolIsPublished(schoolId);
+        allow create, update: if isAdmin()
+          && request.resource.data.status in ['waiting', 'in_progress', 'finished']
+          && request.resource.data.bestOf in [1, 3, 5, 7];
+        allow delete: if isAdmin();
+      }
+    }
+
+    // Tudo o que não foi listado acima é negado.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
