@@ -93,6 +93,22 @@ A autorização usa uma **Custom Claim `admin: true`** no token do usuário. Ela
 4. A pessoa deve sair e entrar de novo (ou clicar em **Verificar novamente** na tela de acesso negado).
 5. Apague a chave do computador se não for mais usá-la.
 
+/* Como adicionar outro administrador
+1. Cadastre a nova conta
+
+A pessoa precisa ter uma conta criada no Firebase Authentication, usando o e-mail e a senha dela.
+
+2. Abra o terminal na pasta do projeto
+
+No seu caso, a pasta é:
+cd "C:\Users\A.D.I\Desktop\campeonato-free-fire"
+
+
+3. Execute o comando para definir o administrador
+
+Pelo que você já utilizou no projeto, o comando é:
+npm run set-admin -- novoemail@gmail.com */
+
 ## 10. Executar localmente
 
 ```bash
