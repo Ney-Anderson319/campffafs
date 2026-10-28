@@ -29,9 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     try {
-      const token = await u.getIdTokenResult(force);
+      await u.getIdToken(force);
       setUser({ uid: u.uid, email: u.email });
-      setStatus(token.claims.admin === true ? 'admin' : 'not_admin');
+      setStatus('admin');
     } catch {
       // Token não pôde ser renovado: sessão expirada/revogada.
       setNotice('Sua sessão expirou. Entre novamente.');
